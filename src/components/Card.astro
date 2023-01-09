@@ -1,0 +1,39 @@
+
+---
+// because cards are individual compoments, we want create their own style and structure 
+// also create a default display value for them
+export interface Props {
+   title: string;
+   body: string;
+   color?: boolean;       // adding other color options for card
+}
+
+// deafult is what defined in the Features.astro file
+// because different pages might need different thing to display 
+// card.astro file is just providing the structure
+const { color = false } = Astro.props as Props;              // make the color option false by default
+                                                             // give the color where you need it, in Features.astro
+---
+
+
+<!-- conditioning: if we have card, then we have the color -->
+<!-- <slot /> is just a placeholder for you to fill with markdown file -->
+<div class={`card ${color && 'color'}`}>
+    <slot />
+</div>
+
+<!-- ------ style ------- -->
+<style>
+    .card {
+       background: #fff;
+       padding: 20px;
+       border-radius: 10px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0, 0.1);
+       margin-bottom: 20px;
+    }
+
+    .color {
+       background: var(--color-primary);
+       color: #fff;
+    }
+</style>
